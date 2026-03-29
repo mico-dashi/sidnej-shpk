@@ -40,11 +40,9 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center group py-1">
-          <img 
-            src="/sidnej shpk produkte/Untitled design (3).png" 
-            alt="Sidnej SHPK Logo"
-            className="h-10 md:h-14 w-auto group-hover:opacity-80 transition-opacity"
-          />
+          <div className="h-10 md:h-14 flex items-center">
+            <span className="font-display text-xl md:text-2xl font-bold text-white tracking-tight">S<span className="text-primary">SHPK</span></span>
+          </div>
         </Link>
 
         {/* Desktop Nav */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,13 +22,19 @@ export default function Footer() {
             Shije autentike shqiptare që nga viti 2008. Me seli në qytetin historik të Beratit, ne prodhojmë perime të konservuara premium duke përdorur receta tradicionale dhe standarde moderne.
           </p>
           <div className="flex gap-4">
-            {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (
+            {[
+              { icon: Facebook, url: 'https://facebook.com/sidnej.shpk' },
+              { icon: Instagram, url: 'https://instagram.com/sidnej.shpk' },
+              { icon: Linkedin, url: 'https://linkedin.com/company/sidnej-shpk' }
+            ].map((social, i) => (
               <a
                 key={i}
-                href="#"
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all"
               >
-                <Icon size={18} />
+                <social.icon size={18} />
               </a>
             ))}
           </div>
@@ -38,9 +44,15 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Kompania</h4>
           <ul className="space-y-4 text-sm">
-            {['Rreth Nesh', 'Historia Jonë', 'Qëndrueshmëria', 'Kontrolli i Cilësisë', 'Karriera'].map((item) => (
-              <li key={item}>
-                <Link to="#" className="hover:text-accent transition-colors">{item}</Link>
+            {[
+              { name: 'Rreth Nesh', path: '/about' },
+              { name: 'Shërbimet', path: '/services' },
+              { name: 'Produktet', path: '/products' },
+              { name: 'Blog', path: '/blog' },
+              { name: 'Kontakt', path: '/contact' }
+            ].map((item) => (
+              <li key={item.name}>
+                <Link to={item.path} className="hover:text-accent transition-colors">{item.name}</Link>
               </li>
             ))}
           </ul>
@@ -50,9 +62,14 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Burimet</h4>
           <ul className="space-y-4 text-sm">
-            {['Katalogu i Produkteve', 'Shpërndarja', 'Shitja me Shumicë', 'Receta', 'Blog'].map((item) => (
-              <li key={item}>
-                <Link to="#" className="hover:text-accent transition-colors">{item}</Link>
+            {[
+              { name: 'Katalogu i Produkteve', path: '/products' },
+              { name: 'Shitja me Shumicë', path: '/services' },
+              { name: 'Blog & Receta', path: '/blog' },
+              { name: 'Kontakti', path: '/contact' }
+            ].map((item) => (
+              <li key={item.name}>
+                <Link to={item.path} className="hover:text-accent transition-colors">{item.name}</Link>
               </li>
             ))}
           </ul>

@@ -10,11 +10,47 @@ export default function Contact() {
     message: ''
   });
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+    
+    if (!formState.name.trim()) {
+      newErrors.name = 'Emri është i detyrueshëm';
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formState.email.trim() || !emailRegex.test(formState.email)) {
+      newErrors.email = 'Email-i nuk është i vlefshëm';
+    }
+    
+    if (!formState.subject) {
+      newErrors.subject = 'Zgjidh një subjekt';
+    }
+    
+    if (!formState.message.trim() || formState.message.trim().length < 10) {
+      newErrors.message = 'Mesazhi duhet të ketë të paktën 10 karaktere';
+    }
+    
+    return newErrors;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would send the data to a server
+    const newErrors = validateForm();
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setErrors({});
+    setSubmitted(true);
     alert('Faleminderit për mesazhin tuaj! Ekipi ynë do t\'ju kontaktojë së shpejti.');
     setFormState({ name: '', email: '', subject: '', message: '' });
+    
+    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
@@ -76,13 +112,18 @@ export default function Contact() {
               <div className="pt-8 border-t border-soft-white">
                 <h4 className="font-bold text-dark-gray mb-4 uppercase tracking-widest text-xs">Ndiqni Udhëtimin Tonë</h4>
                 <div className="flex gap-4">
-                  {['Instagram', 'LinkedIn', 'Facebook'].map((social) => (
+                  {[
+                    { name: 'Instagram', url: 'https://instagram.com/sidnej.shpk' },
+                    { name: 'Facebook', url: 'https://facebook.com/sidnej.shpk' }
+                  ].map((social) => (
                     <a
-                      key={social}
-                      href="#"
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="px-6 py-2.5 bg-white rounded-full text-xs font-bold text-dark-gray/60 hover:bg-primary hover:text-white transition-all border border-soft-white shadow-sm"
                     >
-                      {social}
+                      {social.name}
                     </a>
                   ))}
                 </div>
@@ -102,8 +143,11 @@ export default function Contact() {
                         value={formState.name}
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                         placeholder="John Doe"
-                        className="w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 focus:ring-primary outline-none transition-all text-dark-gray font-medium"
+                        className={`w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 outline-none transition-all text-dark-gray font-medium ${
+                          errors.name ? 'focus:ring-red-500' : 'focus:ring-primary'
+                        }`}
                       />
+                      {errors.name && <span className="text-xs text-red-500 font-bold">{errors.name}</span>}
                     </div>
                     <div className="space-y-3">
                       <label className="text-xs font-black text-dark-gray/30 uppercase tracking-widest ml-1">Adresa e Email-it</label>
@@ -113,8 +157,11 @@ export default function Contact() {
                         value={formState.email}
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                         placeholder="john@example.com"
-                        className="w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 focus:ring-primary outline-none transition-all text-dark-gray font-medium"
+                        className={`w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 outline-none transition-all text-dark-gray font-medium ${
+                          errors.email ? 'focus:ring-red-500' : 'focus:ring-primary'
+                        }`}
                       />
+                      {errors.email && <span className="text-xs text-red-500 font-bold">{errors.email}</span>}
                     </div>
                   </div>
                   <div className="space-y-3">
@@ -122,7 +169,9 @@ export default function Contact() {
                     <select
                       value={formState.subject}
                       onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                      className="w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 focus:ring-primary outline-none transition-all appearance-none text-dark-gray font-medium"
+                      className={`w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 outline-none appearance-none text-dark-gray font-medium ${
+                        errors.subject ? 'focus:ring-red-500' : 'focus:ring-primary'
+                      }`}
                     >
                       <option value="">Zgjidhni një subjekt</option>
                       <option value="General Inquiry">Kërkesë e Përgjithshme</option>
@@ -131,6 +180,7 @@ export default function Contact() {
                       <option value="Media">Media dhe Shtypi</option>
                       <option value="Other">Tjetër</option>
                     </select>
+                    {errors.subject && <span className="text-xs text-red-500 font-bold">{errors.subject}</span>}
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-black text-dark-gray/30 uppercase tracking-widest ml-1">Mesazhi Juaj</label>
@@ -140,15 +190,23 @@ export default function Contact() {
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                       placeholder="Si mund t'ju ndihmojmë?"
-                      className="w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 focus:ring-primary outline-none transition-all resize-none text-dark-gray font-medium"
+                      className={`w-full px-8 py-5 bg-soft-white border-none rounded-3xl focus:ring-2 outline-none transition-all resize-none text-dark-gray font-medium ${
+                        errors.message ? 'focus:ring-red-500' : 'focus:ring-primary'
+                      }`}
                     />
+                    {errors.message && <span className="text-xs text-red-500 font-bold">{errors.message}</span>}
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-6 bg-primary hover:bg-primary/90 text-white rounded-3xl font-bold text-lg transition-all flex items-center justify-center gap-4 group shadow-2xl shadow-primary/30"
+                    disabled={submitted}
+                    className={`w-full py-6 rounded-3xl font-bold text-lg transition-all flex items-center justify-center gap-4 group shadow-2xl ${
+                      submitted
+                        ? 'bg-green-500 text-white shadow-green-500/30'
+                        : 'bg-primary hover:bg-primary/90 text-white shadow-primary/30'
+                    }`}
                   >
-                    Dërgo Mesazhin
-                    <Send size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    {submitted ? '✓ Mesazhi u Dërgua' : 'Dërgo Mesazhin'}
+                    {!submitted && <Send size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
                   </button>
                 </form>
               </div>

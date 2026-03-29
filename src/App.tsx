@@ -10,7 +10,7 @@ import Contact from './pages/Contact';
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/sidnej-shpk">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
