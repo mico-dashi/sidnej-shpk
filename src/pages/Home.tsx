@@ -142,10 +142,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
-              { name: 'Spec i Mbushur', img: '/sidnej shpk produkte/specpv.jpg' },
-              { name: 'Ajvar Tradicional', img: '/sidnej shpk produkte/ajvarv.jpg' },
-              { name: 'Ullinj te Konservuar', img: '/sidnej shpk produkte/ullinjv.jpg' },
-              { name: 'Vaj Ulliri Ekstra', img: '/sidnej shpk produkte/vajekstrav.jpg' },
+              { name: 'Spec i Mbushur', img: '/products/specpv.jpg' },
+              { name: 'Ajvar Tradicional', img: '/products/ajvarv.jpg' },
+              { name: 'Ullinj te Konservuar', img: '/products/ullinjv.jpg' },
+              { name: 'Vaj Ulliri Ekstra', img: '/products/vajekstrav.jpg' },
             ].map((cat, i) => (
               <motion.div
                 key={i}
@@ -223,12 +223,12 @@ export default function Home() {
             <div className="relative">
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-6 pt-12">
-                  <img src="/sidnej shpk produkte/specpv.jpg" alt="Fresh peppers" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
-                  <img src="/sidnej shpk produkte/pjeshkevogel.jpg" alt="Ajvar preparation" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
+                  <img src="/products/specpv.jpg" alt="Fresh peppers" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
+                  <img src="/products/pjeshkevogel.jpg" alt="Ajvar preparation" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
                 </div>
                 <div className="space-y-6">
-                  <img src="/sidnej shpk produkte/qershivogel.jpg" alt="Roasted peppers" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
-                  <img src="/sidnej shpk produkte/portokallevogel.jpg" alt="Pickles" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
+                  <img src="/products/qershivogel.jpg" alt="Roasted peppers" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
+                  <img src="/products/portokallevogel.jpg" alt="Pickles" className="rounded-4xl shadow-xl" referrerPolicy="no-referrer" />
                 </div>
               </div>
               <div className="absolute inset-0 bg-linear-to-t from-soft-white via-transparent to-transparent h-1/4 bottom-0" />
