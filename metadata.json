@@ -1,0 +1,7 @@
+{
+  "name": "Sidnej Shpk - Authentic Albanian Taste",
+  "description": "Premium traditional preserved vegetables from Berat, Albania. Over 15 years of excellence in producing ajvar, peppers, and pickles.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
